@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+///TODO : Tambahkan throttle handling pada login
+
 /**
  * route "/register"
  * @method "POST"
