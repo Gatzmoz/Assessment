@@ -26,10 +26,22 @@ class QuestionController extends Controller
             }
             //get all questions and answers
             foreach($question as $q){
-                $question['answer'] = $q->Answer;
-            }
+            // Mengambil jawaban sebagai array
+            $answers = $q->Answer->toArray();
+            
+            // Mengacak jawaban
+            shuffle($answers);
+            
+            // Menyimpan jawaban yang sudah diacak kembali ke objek pertanyaan
+            $q->setRelation('Answer', collect($answers));
+            
+            // Jika diperlukan, menambahkan jawaban ke array 'questions' untuk output
+            $questionData[] = [
+                'question' => $q
+            ];
+        }
     
-            return new GeneralResource(200, 'Questions', $question);
+            return new GeneralResource(200, 'Questions', $questionData);
         } catch (\Throwable $th) {
             throw new GeneralException($th->getMessage(), 500);
         }

@@ -3,6 +3,7 @@
 use App\Exceptions\GeneralException;
 use App\Http\Resources\GeneralResource;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -52,43 +54,23 @@ return Application::configure(basePath: dirname(__DIR__))
         })
         // handle validation errors
         ->render(function (ValidationException $e, Request $request) {
-            return new GeneralResource(
-                422,
-                'Validation error',
-                $e->errors()
-            );
-        })
-        ;
-        // Handle not found http exceptions
-        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            if ($request->is('*')) {
-                throw new GeneralException(
-                    'Route not found',
-                    404
-                );
-            }
-        })
-        // Handle route not found exceptions
-        ->render(function (RouteNotFoundException $e, Request $request) {
             throw new GeneralException(
-                $e->getMessage(),
-                401
-            );
-        })
-        // Handle too many requests
-        ->render(function (ThrottleRequestsException $e, Request $request) {
-            throw new GeneralException(
-                'Too many requests',
-                429
-            );
-        })
-        // handle validation errors
-        ->render(function (ValidationException $e, Request $request) {
-            return new GeneralResource(
-                422,
                 'Validation error',
-                $e->errors()
+                422,
+            );
+        }) // Handle authentication failures
+        ->render(function (AuthenticationException $e, Request $request) {
+            throw new GeneralException(
+                'Unauthenticated',
+                401,
             );
         })
+        // Handle unauthorized HTTP exceptions
+        ->render(function (UnauthorizedHttpException $e, Request $request) {
+            throw new GeneralException(
+                'Unauthorized',
+                401,
+            );
+        });
         ;
     })->create();
