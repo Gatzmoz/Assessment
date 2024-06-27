@@ -75,4 +75,22 @@ class JWTAuthController extends Controller
          );
       }
    }
+   /**
+    * Logout user
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+   public function logout()
+   {
+      $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+      if ($removeToken) {
+         return new GeneralResource(
+            200,
+            'Logout successful',
+            [
+               'message' => 'Logout successful',
+            ]
+         );
+      }
+   }
 }
