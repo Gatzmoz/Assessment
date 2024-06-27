@@ -8,9 +8,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Resources\GeneralResource;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class JWTAuthController extends Controller
 {
@@ -43,14 +41,14 @@ class JWTAuthController extends Controller
         $token = auth('api')->login($user);
         $data['access_token'] = $token;
 
-        // Handle email verification
-        if (!$user->email_verified_at) {
-            throw new GeneralException(
-                'Email not verified',
-                401,
-                $data
-            );
-        }
+        // Handle email verification (uncomment for verified email validation)
+        // if (!$user->email_verified_at) {
+        //     throw new GeneralException(
+        //         'Email not verified',
+        //         401,
+        //         $data
+        //     );
+        // }
 
         // return response
         return new GeneralResource(
