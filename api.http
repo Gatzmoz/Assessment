@@ -1,0 +1,19 @@
+@hostname = http://127.0.0.1:8000/api/v1
+
+@jwtToken = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3YxL2F1dGgvand0L2xvZ2luIiwiaWF0IjoxNzE5NDc4NzMxLCJleHAiOjE3MTk0ODIzMzEsIm5iZiI6MTcxOTQ3ODczMSwianRpIjoiNGYySVl4NWszOFFvS3Y1WiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.OnFXd1pb-3Wn6p1XrMmr8RqZKH2qlNcvsfiyF8Dq7h8
+
+# API Documentation Auth JWT
+### Post Login
+POST {{hostname}}/auth/jwt/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password"
+}
+
+### Logout JWT
+POST {{hostname}}/auth/jwt/logout
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
