@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use App\Models\Result;
 use App\Http\Requests\StoreResultRequest;
@@ -9,6 +11,7 @@ use App\Http\Requests\UpdateResultRequest;
 
 class ResultController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */

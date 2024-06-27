@@ -9,6 +9,7 @@ class Answer extends Model
 {
     use HasFactory;
 
+
     protected $table = 'answers';
     protected $primaryKey = 'answer_id';
     /**
@@ -44,4 +45,5 @@ class Answer extends Model
     {
         return $this->hasOne(Question::class, 'question_id', 'question_id');
     }
+
 }

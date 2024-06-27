@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Result extends Model
 {
     use HasFactory;
+
     protected $table = 'results';
     protected $primaryKey = 'result_id';
     /**
@@ -44,4 +45,5 @@ class Result extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+
 }

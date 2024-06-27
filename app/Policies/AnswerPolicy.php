@@ -19,7 +19,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Answer $jawaban): bool
+
+    public function view(User $user, Answer $answer): bool
     {
         //
     }
@@ -35,7 +36,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Answer $jawaban): bool
+
+    public function update(User $user, Answer $answer): bool
     {
         //
     }
@@ -43,7 +45,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Answer $jawaban): bool
+    public function delete(User $user, Answer $answer): bool
+
     {
         //
     }
@@ -51,7 +54,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Answer $jawaban): bool
+
+    public function restore(User $user, Answer $answer): bool
     {
         //
     }
@@ -59,7 +63,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Answer $jawaban): bool
+
+    public function forceDelete(User $user, Answer $answer): bool
     {
         //
     }

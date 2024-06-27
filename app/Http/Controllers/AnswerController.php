@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Exceptions\GeneralException;
 use App\Http\Resources\GeneralResource;
 use App\Models\Answer;
@@ -24,6 +25,7 @@ class AnswerController extends Controller
         }
         return new GeneralResource(200, 'Answer Found', $answer);
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,6 +45,7 @@ class AnswerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request,$question_id,$answer_id){
         // dummy user
         // $result = Result::create([
@@ -76,6 +79,7 @@ class AnswerController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Answer $jawaban)
     {
         //
@@ -84,7 +88,9 @@ class AnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Answer $jawaban)
+
     {
         //
     }
@@ -92,6 +98,7 @@ class AnswerController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UpdateAnswerRequest $request, Answer $jawaban)
     {
         //
@@ -100,6 +107,7 @@ class AnswerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Answer $jawaban)
     {
         //
