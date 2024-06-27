@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+
+Route::prefix('v1')->group(function () {
+    Route::get('/questions', [QuestionController::class, 'getAll']);
+    Route::get('/question/{question_id}/answer/{answer_id}', [AnswerController::class, 'getAnswer']);
+    Route::post('/question/{question_id}/answer/{answer_id}', [AnswerController::class, 'store']);
+});

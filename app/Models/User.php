@@ -44,4 +44,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function Result()
+    {
+        //one to one
+        return $this->hasOne(Result::class, 'user_id', 'user_id');
+    }
 }
