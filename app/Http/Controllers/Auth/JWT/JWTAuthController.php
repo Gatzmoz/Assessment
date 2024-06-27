@@ -9,6 +9,7 @@ use App\Http\Resources\GeneralResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTAuthController extends Controller
 {
@@ -65,12 +66,14 @@ class JWTAuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
-        return new GeneralResource(
-            200,
-            'Logout successful',
-            []
-        );
+        $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+        if($removeToken) {
+            return new GeneralResource(
+                200,
+                'Logout successful',
+                []
+            );
+        }
     }
  
 }
