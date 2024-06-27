@@ -33,47 +33,6 @@ class ResultController extends Controller
          throw new GeneralException($e->getMessage(), 500);
       }
    }
-
-   /**
-    * Show the form for creating a new resource.
-    */
-   public function create()
-   {
-      //
-   }
-
-   /**
-    * Store a newly created resource in storage.
-    */
-   public function store(StoreResultRequest $request)
-   {
-      //
-   }
-
-   /**
-    * Display the specified resource.
-    */
-   public function show(Result $result)
-   {
-      //
-   }
-
-   /**
-    * Show the form for editing the specified resource.
-    */
-   public function edit(Result $result)
-   {
-      //
-   }
-
-   /**
-    * Update the specified resource in storage.
-    */
-   public function update(UpdateResultRequest $request, Result $result)
-   {
-      //
-   }
-
    /**
     * Remove the specified resource from storage.
     */
