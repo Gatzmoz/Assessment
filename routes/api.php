@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 ///TODO : Tambahkan throttle handling pada login
+///TODO : Masukan logout ke middleware
 
 /**
  * route "/register"
