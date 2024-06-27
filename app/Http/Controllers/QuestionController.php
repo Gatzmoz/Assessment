@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GeneralException;
+use App\Http\Resources\GeneralResource;
 use App\Models\Question;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
@@ -11,18 +13,23 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    //get all questions
+    public function getAll()
     {
-        //
+        $question = Question::all();
+        //validate if data not found
+        if(!$question){
+            return new GeneralException('Data not found', 404);
+        }
+        //get all questions and answers
+        foreach($question as $q){
+            $question['answer'] = $q->Answer;
+        }
+
+        return new GeneralResource(200, 'Questions', $question);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,13 +47,6 @@ class QuestionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

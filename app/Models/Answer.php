@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Answer extends Model
 {
-    use HasFactory; 
-    protected $table = 'questions';
-    protected $primaryKey = 'question_id';
+    use HasFactory;
+
+    protected $table = 'answers';
+    protected $primaryKey = 'answer_id';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'teks_pertanyaan'
+         'teks_jawaban', 'nilai_sifat'
     ];
 
     /**
@@ -36,13 +37,11 @@ class Question extends Model
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
         ];
     }
 
-    public function Answer()
+    public function Question()
     {
-        return $this->hasMany(Answer::class, 'question_id', 'question_id');
+        return $this->hasOne(Question::class, 'question_id', 'question_id');
     }
 }
