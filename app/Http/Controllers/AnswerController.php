@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
 use App\Http\Resources\GeneralResource;
 use App\Models\Answer;
@@ -18,12 +18,17 @@ class AnswerController extends Controller
 
     //get answer by question_id and answer_id
     public function getAnswer(Request $request,$question_id,$answer_id){
-        $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
-        //validate if data not found
-        if(!$answer){
-            return new GeneralException('Data not found', 404);
+        try {
+            $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
+            //validate if data not found
+            if(!$answer){
+                throw new GeneralException('Data not found', 404);
+            }
+            return new GeneralResource(200, 'Answer Found', $answer);
+            } catch (\Exception $e) {
+            // Tangani pengecualian umum
+            throw new GeneralException($e->getMessage(), 500);
         }
-        return new GeneralResource(200, 'Answer Found', $answer);
     }
 
     /**
@@ -47,33 +52,48 @@ class AnswerController extends Controller
      */
 
     public function store(Request $request,$question_id,$answer_id){
-        // dummy user
-        // $result = Result::create([
-        //     'user_id' => 1,
-        //     'tanggal_kuis' => Carbon::now(),
-        // ]);
-        $result = Result::where('user_id' , 1)->first();
-        $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
-        //validate if data not found
-        if(!$answer){
-            return new GeneralException('Data not found', 404);
+        //find result by user_id
+        $result = Result::where('user_id', auth()->user()->id)->first();
+        // if result not found, create new result
+        DB::beginTransaction();
+        try {
+            if(!$result){
+                $result = Result::create([
+                    'user_id' => auth()->user()->id,
+                    'tanggal_kuis' => Carbon::now(),
+                ]);
+            }
+            //find answer by question_id and answer_id
+            $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
+
+            //validate if data not found
+            if(!$answer){
+                throw new GeneralException('Answer not found', 404);
+            }
+
+            switch ($answer->nilai_sifat) {
+                case 1:
+                    $result->sifat1_score +=1;
+                    break;
+                case 2:
+                    $result->sifat2_score +=1;
+                    break;
+                case 3:
+                    $result->sifat3_score +=1;
+                    break;
+                case 4:
+                    $result->sifat4_score +=1;
+                    break;
+            }
+            $result->save();
+            return new GeneralResource(201, 'Success Input Answer', [$answer->Question,$result]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Kembalikan respons error
+            throw new GeneralException($e->getMessage(), 500);
         }
-        switch ($answer->nilai_sifat) {
-            case 1:
-                $result->sifat1_score +=1;
-                break;
-            case 2:
-                $result->sifat2_score +=1;
-                break;
-            case 3:
-                $result->sifat3_score +=1;
-                break;
-            case 4:
-                $result->sifat4_score +=1;
-                break;
-        }
-        $result->save();
-        return new GeneralResource(201, 'Success Input Answer', [$answer->Question,$result]);
+        
     }
 
     /**

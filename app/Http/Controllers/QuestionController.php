@@ -17,17 +17,22 @@ class QuestionController extends Controller
     //get all questions
     public function getAll()
     {
-        $question = Question::all();
-        //validate if data not found
-        if(!$question){
-            return new GeneralException('Data not found', 404);
+        try {
+            //code...
+            $question = Question::all();
+            //validate if data not found
+            if(!$question){
+                throw new GeneralException('Data not found', 404);
+            }
+            //get all questions and answers
+            foreach($question as $q){
+                $question['answer'] = $q->Answer;
+            }
+    
+            return new GeneralResource(200, 'Questions', $question);
+        } catch (\Throwable $th) {
+            throw new GeneralException($th->getMessage(), 500);
         }
-        //get all questions and answers
-        foreach($question as $q){
-            $question['answer'] = $q->Answer;
-        }
-
-        return new GeneralResource(200, 'Questions', $question);
     }
 
 
