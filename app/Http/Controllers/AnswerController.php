@@ -53,13 +53,13 @@ class AnswerController extends Controller
 
     public function store(Request $request,$question_id,$answer_id){
         //find result by user_id
-        $result = Result::where('user_id', auth()->user()->id)->first();
+        $result = Result::where('user_id', auth('api')->user()->id)->first();
         // if result not found, create new result
         DB::beginTransaction();
         try {
             if(!$result){
                 $result = Result::create([
-                    'user_id' => auth()->user()->id,
+                    'user_id' => auth('api')->user()->id,
                     'tanggal_kuis' => Carbon::now(),
                 ]);
             }
@@ -86,6 +86,7 @@ class AnswerController extends Controller
                     break;
             }
             $result->save();
+            DB::commit();
             return new GeneralResource(201, 'Success Input Answer', [$answer->Question,$result]);
         } catch (\Exception $e) {
             DB::rollBack();

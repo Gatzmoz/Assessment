@@ -19,13 +19,15 @@ class ResultController extends Controller
     public function index()
     {
         try {
-            if(!auth()->user()){
+            if(!auth('api')->user()){
                 throw new GeneralException('Unauthorized', 401);
             }
-            $result = Result::where('user_id', auth()->user()->id)->first;
+
+            $result = Result::where('user_id', auth('api')->user()->id)->first();
             if(!$result){
-                return new GeneralException('Data not found', 404);
+                throw new GeneralException('Data not found', 404);
             }
+
             return new GeneralResource(200, 'Result Found', $result);
         } catch (\Exception $e) {
             throw new GeneralException($e->getMessage(), 500);

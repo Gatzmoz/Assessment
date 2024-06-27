@@ -15,7 +15,6 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::post('/logout', [JWTAuthController::class,'logout']);
         Route::get('/questions', [QuestionController::class, 'getAll']);
-        Route::get('/question/{question_id}/answer/{answer_id}', [AnswerController::class, 'getAnswer']);
         Route::post('/question/{question_id}/answer/{answer_id}', [AnswerController::class, 'store']);
         Route::get('/result', [ResultController::class, 'index']);
     });
