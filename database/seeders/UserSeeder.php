@@ -21,6 +21,14 @@ class UserSeeder extends Seeder
 
       );
       $users = [
+        /// USER KADIV DAN KASUBDIV
+         ['name' => 'Cornelius Linux', 'email' => 'cornelius.linux@imtek.com', 'password' => bcrypt('kadiv')],
+         ['name' => 'Muhammad Yusuf', 'email' => 'muhammad.yusuf@imtek.com', 'password' => bcrypt('kasubfrontend')],
+         ['name' => 'Gilang Rama Syaputra', 'email' => 'gilang.rama@imtek.com', 'password' => bcrypt('kasubbackend')],
+         ['name' => 'Virdio Samuel', 'email' => 'virdio.samuel@imtek.com', 'password' => bcrypt('kasubvvd')],
+         ['name' => 'Natasya Ega Lina', 'email' => 'natasya.ega@imtek.com', 'password' => bcrypt('kasubcontentresearch')],
+    
+        /// USER STAFF
          ['name' => 'Muharyan Syaifullah', 'email' => 'muharyan.syaifullah@imtek.com', 'password' => bcrypt('123140045')],
          ['name' => 'Akhdan Arif Prayoga', 'email' => 'akhdan.prayoga@imtek.com', 'password' => bcrypt('122140099')],
          ['name' => 'Edu Juanda Pratama', 'email' => 'edu.pratama@imtek.com', 'password' => bcrypt('123320012')],
