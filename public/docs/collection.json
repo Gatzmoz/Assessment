@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "https:\/\/c0c7-110-137-38-231.ngrok-free.app"
+            "value": "http:\/\/localhost"
         }
     ],
     "info": {
         "name": "API Documentation Mini Project IMTEK PPLK 24",
-        "_postman_id": "d124e49d-f364-44ab-b312-3119fbd19827",
+        "_postman_id": "8af390e7-7491-4c20-b169-1244ee48bcea",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -43,7 +43,7 @@
                             "mode": "raw",
                             "raw": "{\"email\":\"ucupjago@gaming.yt\",\"password\":\"ucupgggaming\"}"
                         },
-                        "description": "",
+                        "description": "Supaya dapat menggunakan endpoint lainnya, pengguna wajib login.\nJika pengguna login sebanyak 3 kali maka akan cooldown selama 1 menit.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -90,12 +90,19 @@
                             }
                         ],
                         "body": null,
-                        "description": ""
+                        "description": "Endpoint ini digunakan untuk melakukan logout pengguna saat ini.\nIni akan mencabut token akses yang digunakan untuk otentikasi."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Logout successful\",\n \"data\": []\n}",
+                            "name": "success"
+                        }
+                    ]
                 },
                 {
-                    "name": "Get all questions",
+                    "name": "Get All Questions",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -115,32 +122,31 @@
                             }
                         ],
                         "body": null,
-                        "description": ""
+                        "description": "Endpoint untuk mengambil semua pertanyaan beserta jawabannya."
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Questions\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"question\": \"Sample Question 1\",\n      \"answer\": \"Sample Answer 1\"\n    },\n    {\n      \"id\": 2,\n      \"question\": \"Sample Question 2\",\n      \"answer\": \"Sample Answer 2\"\n    },\n    ...\n  ]\n }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Data not found\",\n  \"data\": null\n}",
+                            "name": "Invalid Data"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n  \"message\": \"Internal Server Error\",\n  \"data\": null\n}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "Answer question",
+                    "name": "Answer Question",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -151,13 +157,13 @@
                                 {
                                     "id": "question_id",
                                     "key": "question_id",
-                                    "value": "aut",
+                                    "value": "1",
                                     "description": "The ID of the question."
                                 },
                                 {
                                     "id": "answer_id",
                                     "key": "answer_id",
-                                    "value": "dolores",
+                                    "value": "3",
                                     "description": "The ID of the answer."
                                 }
                             ]
@@ -174,9 +180,28 @@
                             }
                         ],
                         "body": null,
-                        "description": ""
+                        "description": "Endpoint untuk menyimpan jawaban untuk pertanyaan tertentu dan memperbarui hasil pengguna."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"message\": \"Success Input Answer\",\n \"data\": [\n   {\n     \"id\": 1,\n     \"question\": \"Example\",\n     ...\n   },\n   {\n     \"id\": 1,\n     \"user_id\": 1,\n     \"tanggal_kuis\": \"2023-06-28 12:00:00\",\n     \"sifat1_score\": 2,\n     \"sifat2_score\": 3,\n     ...\n   }\n ]\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"status\": \"fail\",\n \"message\": \"Answer not found\"\n}",
+                            "name": "Invalid Answer"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n \"status\": \"fail\",\n \"message\": \"An error occurred\"\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Get Result",
@@ -199,26 +224,31 @@
                             }
                         ],
                         "body": null,
-                        "description": ""
+                        "description": "Endpoint untuk mengambil hasil jawaban yang terkait dengan pengguna yang diautentikasi."
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Result Found\",\n \"data\": {\n     \"id\": 1,\n     \"user_id\": 1,\n     \"tanggal_kuis\": \"2023-06-28 12:00:00\",\n     \"sifat1_score\": 2,\n     \"sifat2_score\": 3,\n     ...\n }\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{\n \"status\": \"Fail\",\n \"message\": \"Unauthorized\"\n}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"status\": \"Fail\",\n \"message\": \"Data not found\"\n}",
+                            "name": "Invalid Data"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n \"status\": \"Fail\",\n \"message\": \"An error occurred\"\n}",
                             "name": ""
                         }
                     ]

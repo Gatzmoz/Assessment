@@ -21,7 +21,7 @@ class JWTAuthController extends Controller
      * @bodyParam email string required Email user, Example: ucupjago@gaming.yt
      * @bodyParam password string required Password user, Example: ucupgggaming
      * 
-     * @response scenario=success 
+     * @response 200 scenario=success 
      * {
      *       "user": {
      *           "name": "Test User",
@@ -94,7 +94,16 @@ class JWTAuthController extends Controller
     /**
      * Logout
      * 
+     * Endpoint ini digunakan untuk melakukan logout pengguna saat ini.
+     * Ini akan mencabut token akses yang digunakan untuk otentikasi.
+     * 
      * @authenticated
+     * 
+     * @response 200 scenario=success 
+     *{
+     *  "message": "Logout successful",
+     *  "data": []
+     * }
      */
     public function logout()
     {
