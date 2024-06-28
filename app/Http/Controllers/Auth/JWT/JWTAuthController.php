@@ -13,67 +13,84 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTAuthController extends Controller
 {
-    /**
-     * Login user
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(LoginRequest $request)
-    {
-        // Auth validation
-        $credentials = $request->only('email', 'password');
-        if (!Auth::guard('api')->attempt($credentials)) {
-            throw new GeneralException(
-                'Invalid credentials',
-                401
-            );
-        }
+   /**
+    * Login user
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+   public function login(LoginRequest $request)
+   {
+      // Auth validation
+      $credentials = $request->only('email', 'password');
+      if (!Auth::guard('api')->attempt($credentials)) {
+         throw new GeneralException(
+            'Invalid credentials',
+            401
+         );
+      }
 
-        // Get user data
-        $user = User::where('email', $request->email)->first();
-        
-        // User data
-        $data['user'] = [
-            'name' => $user->name,
-            'email' => $user->email,
-        ];
+      // Get user data
+      $user = User::where('email', $request->email)->first();
 
-        // Generate token
-        $token = auth('api')->login($user);
-        $data['access_token'] = $token;
+      // User data
+      $data['user'] = [
+         'name' => $user->name,
+         'email' => $user->email,
+      ];
 
-        // Handle email verification (uncomment for verified email validation)
-        // if (!$user->email_verified_at) {
-        //     throw new GeneralException(
-        //         'Email not verified',
-        //         401,
-        //         $data
-        //     );
-        // }
+      // Generate token
+      $token = auth('api')->login($user);
+      $data['access_token'] = $token;
 
-        // return response
-        return new GeneralResource(
+      // Handle email verification (uncomment for verified email validation)
+      // if (!$user->email_verified_at) {
+      //     throw new GeneralException(
+      //         'Email not verified',
+      //         401,
+      //         $data
+      //     );
+      // }
+
+      // return response
+      return new GeneralResource(
+         200,
+         'Login successful',
+         $data
+      );
+   }
+
+   /**
+    * Logout user
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+   public function logout()
+   {
+      $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+      if ($removeToken) {
+         return new GeneralResource(
             200,
-            'Login successful',
+            'Logout successful',
             $data
-        );
-    }
-
-    /**
-     * Logout user
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout()
-    {
-        $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
-        if($removeToken) {
-            return new GeneralResource(
-                200,
-                'Logout successful',
-                []
-            );
-        }
-    }
- 
+         );
+      }
+   }
+   /**
+    * Logout user
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
+   public function logout()
+   {
+      $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+      if ($removeToken) {
+         return new GeneralResource(
+            200,
+            'Logout successful',
+            [
+               'message' => 'Logout successful',
+            ]
+         );
+      }
+   }
 }
