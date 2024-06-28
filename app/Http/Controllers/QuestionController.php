@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\GeneralException;
 use App\Http\Resources\GeneralResource;
+use App\Models\AnswerActivity;
 use App\Models\Question;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
+use App\Models\Result;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -53,6 +57,30 @@ class QuestionController extends Controller
     public function getAll()
     {
         try {
+            //reset result user
+            $id = auth('api')->user()->id;
+            $result = Result::where('user_id', $id)->first();
+            $answered = AnswerActivity::where('user_id', $id)->get();
+            DB::beginTransaction();
+            try {
+                if($result){
+                    $result->tanggal_kuis = Carbon::now();
+                    $result->sifat1_score = 0;
+                    $result->sifat2_score = 0;  
+                    $result->sifat3_score = 0;
+                    $result->sifat4_score = 0;
+                    $result->save();
+                };
+                if($answered){
+                    foreach($answered as $a){
+                        $a->delete();
+                    }
+                }
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                throw new GeneralException($th->getMessage(), 500);
+            }
             //code...
             $question = Question::all();
             //validate if data not found
@@ -73,7 +101,7 @@ class QuestionController extends Controller
 
             }
     
-            return new GeneralResource(200, 'Questions', $question->shuffle());
+            return new GeneralResource(200, 'List Questions', $question->shuffle());
         } catch (\Throwable $th) {
             throw new GeneralException($th->getMessage(), 500);
         }

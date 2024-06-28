@@ -70,7 +70,7 @@ class JWTAuthController extends Controller
             'email'=> $user->email,
         ];
 
-        // Generate token
+        // Generate token with payload
         $token = auth('api')->claims($payload)->login($user);
         $data['access_token'] = $token;
 
