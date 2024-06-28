@@ -18,10 +18,8 @@ class Answer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'question_id',
         'answer_id',
         'user_id',
-        'nilai_sifat',
         'teks_jawaban',
     ];
 
@@ -31,7 +29,7 @@ class Answer extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at','nilai_sifat','question_id'
     ];
 
     /**
