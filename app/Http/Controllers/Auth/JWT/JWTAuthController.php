@@ -64,8 +64,14 @@ class JWTAuthController extends Controller
             'email' => $user->email,
         ];
 
+        $payload = [
+            'user_id'=> $user->id,
+            'name'=> $user->name,
+            'email'=> $user->email,
+        ];
+
         // Generate token
-        $token = auth('api')->login($user);
+        $token = auth('api')->claims($payload)->login($user);
         $data['access_token'] = $token;
 
         // Handle email verification (uncomment for verified email validation)
