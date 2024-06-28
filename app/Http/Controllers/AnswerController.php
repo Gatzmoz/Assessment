@@ -114,36 +114,4 @@ class AnswerController extends Controller
          throw new GeneralException($e->getMessage(), 500);
       }
    }
-
-   /**
-    * Display the specified resource.
-    */
-   public function show(Answer $jawaban)
-   {
-      //
-   }
-
-   /**
-    * Show the form for editing the specified resource.
-    */
-   public function edit(Answer $jawaban)
-   {
-      //
-   }
-
-   /**
-    * Update the specified resource in storage.
-    */
-   public function update(UpdateAnswerRequest $request, Answer $jawaban)
-   {
-      //
-   }
-
-   /**
-    * Remove the specified resource from storage.
-    */
-   public function destroy(Answer $jawaban)
-   {
-      //
-   }
-}
+ }
