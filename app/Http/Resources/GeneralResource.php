@@ -4,8 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class GeneralResource extends JsonResponse
+// kalo pake JsonResponse, status dan message ga bisa diakses di frontend
+class GeneralResource extends JsonResource
 {
     public $status;
     public $message;
