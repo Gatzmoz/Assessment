@@ -10,9 +10,9 @@ use App\Http\Requests\UpdateQuestionRequest;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   /**
+    * Display a listing of the resource.
+    */
 
     //get all questions
     public function getAll()
@@ -25,47 +25,22 @@ class QuestionController extends Controller
                 throw new GeneralException('Data not found', 404);
             }
             //get all questions and answers
+            //randomize the questions and answers
             foreach($question as $q){
-                $question['answer'] = $q->Answer;
+                // Mengambil jawaban sebagai array
+                $answers = $q->Answer->toArray();
+                
+                // Mengacak jawaban
+                shuffle($answers);
+
+                // Menyimpan jawaban yang sudah diacak kembali ke objek pertanyaan
+                $q->setRelation('Answer', collect($answers));
+
             }
     
-            return new GeneralResource(200, 'Questions', $question);
+            return new GeneralResource(200, 'Questions', $question->shuffle());
         } catch (\Throwable $th) {
             throw new GeneralException($th->getMessage(), 500);
         }
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreQuestionRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Question $question)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateQuestionRequest $request, Question $question)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Question $question)
-    {
-        //
     }
 }
