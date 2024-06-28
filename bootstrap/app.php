@@ -1,7 +1,6 @@
 <?php
 
 use App\Exceptions\GeneralException;
-use App\Http\Resources\GeneralResource;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -32,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('*')) {
                 throw new GeneralException(
                     'Route not found',
-                    404
+                    404,
                 );
             }
         })
@@ -40,55 +39,28 @@ return Application::configure(basePath: dirname(__DIR__))
         ->render(function (RouteNotFoundException $e, Request $request) {
             throw new GeneralException(
                 $e->getMessage(),
-                401
+                401,
             );
         })
         // Handle too many requests
         ->render(function (ThrottleRequestsException $e, Request $request) {
             throw new GeneralException(
                 'Too many requests',
-                429
+                429,
             );
         })
         // handle validation errors
         ->render(function (ValidationException $e, Request $request) {
-            return new GeneralResource(
-                422,
-                'Validation error',
-                $e->errors()
-            );
-        })
-        ;
-        // Handle not found http exceptions
-        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            if ($request->is('*')) {
-                throw new GeneralException(
-                    'Route not found',
-                    404
-                );
-            }
-        })
-        // Handle route not found exceptions
-        ->render(function (RouteNotFoundException $e, Request $request) {
             throw new GeneralException(
                 $e->getMessage(),
-                401
-            );
-        })
-        // Handle too many requests
-        ->render(function (ThrottleRequestsException $e, Request $request) {
-            throw new GeneralException(
-                'Too many requests',
-                429
-            );
-        })
-        // handle validation errors
-        ->render(function (ValidationException $e, Request $request) {
-            return new GeneralResource(
                 422,
-                'Validation error',
-                $e->errors()
             );
         })
-        ;
+        // handle unauthorized errors
+        ->render(function (\Illuminate\Auth\AuthenticationException  $e, Request $request) {
+            throw new GeneralException(
+                'You Must Login First',
+                400,
+            );
+        });
     })->create();
