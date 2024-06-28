@@ -70,7 +70,7 @@ class JWTAuthController extends Controller
             'email'=> $user->email,
         ];
 
-        // Generate token with payload
+        // Generate token
         $token = auth('api')->claims($payload)->login($user);
         $data['access_token'] = $token;
 
@@ -112,7 +112,7 @@ class JWTAuthController extends Controller
             return new GeneralResource(
                 200,
                 'Logout successful',
-                []
+                ['message' => 'Logout successful']
             );
         }
     }
