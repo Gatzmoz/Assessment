@@ -16,28 +16,6 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-
-   /**
-    * Get Answer
-    *
-    *
-    * @authenticated
-    */
-   public function getAnswer(Request $request, $question_id, $answer_id)
-   {
-      try {
-         $answer = Answer::where('question_id', $question_id)->where('answer_id', $answer_id)->first();
-         //validate if data not found
-         if (!$answer) {
-            throw new GeneralException('Data not found', 404);
-         }
-         return new GeneralResource(200, 'Answer Found', $answer);
-      } catch (\Exception $e) {
-         // Tangani pengecualian umum
-         throw new GeneralException($e->getMessage(), 500);
-      }
-   }
-
    /**
     * Answer Question
     *
