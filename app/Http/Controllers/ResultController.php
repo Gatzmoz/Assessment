@@ -14,7 +14,9 @@ class ResultController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Get Result
+     * 
+     * @authenticated
      */
     public function index()
     {

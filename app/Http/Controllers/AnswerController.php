@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Request;
 class AnswerController extends Controller
 {
 
-    //get answer by question_id and answer_id
+    /**
+     * Get Answer
+     * 
+     * @authenticated
+     */
     public function getAnswer(Request $request,$question_id,$answer_id){
         try {
             $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
@@ -48,9 +52,10 @@ class AnswerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Answer question
+     * 
+     * @authenticated
      */
-
     public function store(Request $request,$question_id,$answer_id){
         //find result by user_id
         $result = Result::where('user_id', auth('api')->user()->id)->first();

@@ -11,7 +11,9 @@ use App\Http\Requests\UpdateQuestionRequest;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get all questions
+     * 
+     * @authenticated
      */
 
     //get all questions

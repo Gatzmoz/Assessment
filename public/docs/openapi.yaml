@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: 'API Documentation Mini Project IMTEK PPLK 24'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'https://c0c7-110-137-38-231.ngrok-free.app'
+paths:
+  /api/v1/login:
+    post:
+      summary: Login
+      operationId: login
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    name: 'Test User'
+                    email: test@example.com
+                  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzE5NTU3NjEyLCJleHAiOjE3MTk1NjEyMTIsIm5iZiI6MTcxOTU1NzYxMiwianRpIjoiRURmc1ZnUThvMTFSWGdLNyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.b_F6Wuuo_l0a18mMoHjs5AwmJ0weXeyuNP-oKMQjbbA
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: 'Test User'
+                      email:
+                        type: string
+                        example: test@example.com
+                  access_token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzE5NTU3NjEyLCJleHAiOjE3MTk1NjEyMTIsIm5iZiI6MTcxOTU1NzYxMiwianRpIjoiRURmc1ZnUThvMTFSWGdLNyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.b_F6Wuuo_l0a18mMoHjs5AwmJ0weXeyuNP-oKMQjbbA
+        401:
+          description: 'Invalid email or password'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: fail
+                  message: 'Invalid credentials'
+                  data: []
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'Invalid credentials'
+                  data:
+                    type: array
+                    example: []
+        429:
+          description: 'Too many requests'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: fail
+                  message: 'Too many requests'
+                  data: []
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'Too many requests'
+                  data:
+                    type: array
+                    example: []
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Email user,'
+                  example: ucupjago@gaming.yt
+                password:
+                  type: string
+                  description: 'Password user,'
+                  example: ucupgggaming
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+  /api/v1/questions:
+    get:
+      summary: 'Get all questions'
+      operationId: getAllQuestions
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+  '/api/v1/question/{question_id}/answer/{answer_id}':
+    post:
+      summary: 'Answer question'
+      operationId: answerQuestion
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: question_id
+        description: 'The ID of the question.'
+        example: aut
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: answer_id
+        description: 'The ID of the answer.'
+        example: dolores
+        required: true
+        schema:
+          type: string
+  /api/v1/result:
+    get:
+      summary: 'Get Result'
+      operationId: getResult
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+tags:
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []
