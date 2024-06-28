@@ -1,0 +1,394 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/login
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Login
+      description: |-
+        Supaya dapat menggunakan endpoint lainnya, pengguna wajib login.
+        Jika pengguna login sebanyak 3 kali maka akan cooldown selama 1 menit.
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Email user,'
+        required: true
+        example: ucupjago@gaming.yt
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      password:
+        name: password
+        description: 'Password user,'
+        required: true
+        example: ucupgggaming
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanBodyParameters:
+      email: ucupjago@gaming.yt
+      password: ucupgggaming
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+                "user": {
+                    "name": "Test User",
+                    "email": "test@example.com"
+                },
+                "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzE5NTU3NjEyLCJleHAiOjE3MTk1NjEyMTIsIm5iZiI6MTcxOTU1NzYxMiwianRpIjoiRURmc1ZnUThvMTFSWGdLNyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.b_F6Wuuo_l0a18mMoHjs5AwmJ0weXeyuNP-oKMQjbbA"
+            }
+        headers: []
+        description: success
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "status": "fail",
+              "message": "Invalid credentials",
+              "data": []
+          }
+        headers: []
+        description: 'Invalid email or password'
+        custom: []
+      -
+        status: 429
+        content: |-
+          {
+              "status": "fail",
+              "message": "Too many requests",
+              "data": []
+           }
+        headers: []
+        description: 'Too many requests'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/logout
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Logout
+      description: |-
+        Endpoint ini digunakan untuk melakukan logout pengguna saat ini.
+        Ini akan mencabut token akses yang digunakan untuk otentikasi.
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "message": "Logout successful",
+           "data": []
+          }
+        headers: []
+        description: success
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer fDgEaha3evdbck8V651Z4P6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/questions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get All Questions'
+      description: 'Endpoint untuk mengambil semua pertanyaan beserta jawabannya.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Questions",
+            "data": [
+              {
+                "id": 1,
+                "question": "Sample Question 1",
+                "answer": "Sample Answer 1"
+              },
+              {
+                "id": 2,
+                "question": "Sample Question 2",
+                "answer": "Sample Answer 2"
+              },
+              ...
+            ]
+           }
+        headers: []
+        description: success
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Data not found",
+            "data": null
+          }
+        headers: []
+        description: 'Invalid Data'
+        custom: []
+      -
+        status: 500
+        content: |-
+          scenario
+          {
+            "message": "Internal Server Error",
+            "data": null
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer V8hagZ365vD1dfaPc4k6beE'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/v1/question/{question_id}/answer/{answer_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Answer Question'
+      description: 'Endpoint untuk menyimpan jawaban untuk pertanyaan tertentu dan memperbarui hasil pengguna.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      question_id:
+        name: question_id
+        description: 'The ID of the question.'
+        required: true
+        example: '1'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+      answer_id:
+        name: answer_id
+        description: 'The ID of the answer.'
+        required: true
+        example: '3'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        custom: []
+    cleanUrlParameters:
+      question_id: '1'
+      answer_id: '3'
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+           "message": "Success Input Answer",
+           "data": [
+             {
+               "id": 1,
+               "question": "Example",
+               ...
+             },
+             {
+               "id": 1,
+               "user_id": 1,
+               "tanggal_kuis": "2023-06-28 12:00:00",
+               "sifat1_score": 2,
+               "sifat2_score": 3,
+               ...
+             }
+           ]
+          }
+        headers: []
+        description: success
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+           "status": "fail",
+           "message": "Answer not found"
+          }
+        headers: []
+        description: 'Invalid Answer'
+        custom: []
+      -
+        status: 500
+        content: |-
+          scenario
+          {
+           "status": "fail",
+           "message": "An error occurred"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer da1VkafE8vbPc5hg6634ZeD'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/result
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get Result'
+      description: 'Endpoint untuk mengambil hasil jawaban yang terkait dengan pengguna yang diautentikasi.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "message": "Result Found",
+           "data": {
+               "id": 1,
+               "user_id": 1,
+               "tanggal_kuis": "2023-06-28 12:00:00",
+               "sifat1_score": 2,
+               "sifat2_score": 3,
+               ...
+           }
+          }
+        headers: []
+        description: success
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+           "status": "Fail",
+           "message": "Unauthorized"
+          }
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+           "status": "Fail",
+           "message": "Data not found"
+          }
+        headers: []
+        description: 'Invalid Data'
+        custom: []
+      -
+        status: 500
+        content: |-
+          scenario
+          {
+           "status": "Fail",
+           "message": "An error occurred"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 5DZkh64aa81E3b6fdcPVveg'
+    controller: null
+    method: null
+    route: null
+    custom: []

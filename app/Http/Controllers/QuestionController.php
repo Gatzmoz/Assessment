@@ -10,6 +10,44 @@ use App\Http\Requests\UpdateQuestionRequest;
 
 class QuestionController extends Controller
 {
+    /**
+     * Get All Questions
+     *
+     * Endpoint untuk mengambil semua pertanyaan beserta jawabannya.
+     *
+     * @authenticated
+     * 
+     * @response 200 scenario=success 
+     * {
+     *   "message": "Questions",
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "question": "Sample Question 1",
+     *       "answer": "Sample Answer 1"
+     *     },
+     *     {
+     *       "id": 2,
+     *       "question": "Sample Question 2",
+     *       "answer": "Sample Answer 2"
+     *     },
+     *     ...
+     *   ]
+     *  }
+     *
+     * @response 404 scenario="Invalid Data"
+     * {
+     *   "message": "Data not found",
+     *   "data": null
+     * }
+     *
+     * @response 500 scenario
+     * {
+     *   "message": "Internal Server Error",
+     *   "data": null
+     * }
+     *
+     */
    /**
     * Display a listing of the resource.
     */

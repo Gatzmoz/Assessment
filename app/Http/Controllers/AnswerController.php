@@ -16,56 +16,45 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-   //get answer by question_id and answer_id
-   public function getAnswer(Request $request, $question_id, $answer_id)
-   {
-      try {
-         $answer = Answer::where('question_id', $question_id)->where('answer_id', $answer_id)->first();
-         //validate if data not found
-         if (!$answer) {
-            throw new GeneralException('Data not found', 404);
-         }
-         return new GeneralResource(200, 'Answer Found', $answer);
-      } catch (\Exception $e) {
-         // Tangani pengecualian umum
-         throw new GeneralException($e->getMessage(), 500);
-      }
-   }
 
-   /**
-    * Store a newly created resource in storage.
-    */
-   public function store(Request $request, $question_id, $answer_id)
-   {
-      $user_id = auth('api')->user()->id;
+    /**
+     * Get Answer
+     * 
+     * 
+     * @authenticated
+     */
+    public function getAnswer(Request $request,$question_id,$answer_id){
+        try {
+            $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
+            //validate if data not found
+            if(!$answer){
+                throw new GeneralException('Data not found', 404);
+            }
+            return new GeneralResource(200, 'Answer Found', $answer);
+            } catch (\Exception $e) {
+            // Tangani pengecualian umum
+            throw new GeneralException($e->getMessage(), 500);
+        }
+    }
 
-      // Check if the user has already answered this question
-      $answered = AnswerActivity::where('question_id', $question_id)
-         ->where('user_id', $user_id)
-         ->exists();
+    /**
+     * Store a newly created resource in storage.
+     */
 
-      if ($answered) {
-         return response()->json([
-            'success' => false,
-            'message' => 'You have already answered this question.'
-         ], 403);
-      }
-
-      // Find or create the result
-      DB::beginTransaction();
-      try {
-         $result = Result::firstOrCreate(
-            ['user_id' => $user_id],
-            ['tanggal_kuis' => Carbon::now()]
-         );
-
-         // Find the answer
-         $answer = Answer::where('question_id', $question_id)->where('answer_id', $answer_id)->first();
-
-         AnswerActivity::create([
-            'user_id' => $user_id,
-            'question_id' => $question_id,
-         ]);
+    public function store(Request $request,$question_id,$answer_id){
+        //find result by user_id
+        $result = Result::where('user_id', auth('api')->user()->id)->first();
+        // if result not found, create new result
+        DB::beginTransaction();
+        try {
+            if(!$result){
+                $result = Result::create([
+                    'user_id' => auth('api')->user()->id,
+                    'tanggal_kuis' => Carbon::now(),
+                ]);
+            }
+            //find answer by question_id and answer_id
+            $answer = Answer::where('question_id',$question_id)->where('answer_id',$answer_id)->first();
 
          //validate if data not found
          if (!$answer) {

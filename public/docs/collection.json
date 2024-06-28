@@ -1,0 +1,268 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "API Documentation Mini Project IMTEK PPLK 24",
+        "_postman_id": "8af390e7-7491-4c20-b169-1244ee48bcea",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"ucupjago@gaming.yt\",\"password\":\"ucupgggaming\"}"
+                        },
+                        "description": "Supaya dapat menggunakan endpoint lainnya, pengguna wajib login.\nJika pengguna login sebanyak 3 kali maka akan cooldown selama 1 menit.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n      \"user\": {\n          \"name\": \"Test User\",\n          \"email\": \"test@example.com\"\n      },\n      \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzE5NTU3NjEyLCJleHAiOjE3MTk1NjEyMTIsIm5iZiI6MTcxOTU1NzYxMiwianRpIjoiRURmc1ZnUThvMTFSWGdLNyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.b_F6Wuuo_l0a18mMoHjs5AwmJ0weXeyuNP-oKMQjbbA\"\n  }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"status\": \"fail\",\n    \"message\": \"Invalid credentials\",\n    \"data\": []\n}",
+                            "name": "Invalid email or password"
+                        },
+                        {
+                            "header": [],
+                            "code": 429,
+                            "body": "{\n    \"status\": \"fail\",\n    \"message\": \"Too many requests\",\n    \"data\": []\n }",
+                            "name": "Too many requests"
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Endpoint ini digunakan untuk melakukan logout pengguna saat ini.\nIni akan mencabut token akses yang digunakan untuk otentikasi."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Logout successful\",\n \"data\": []\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get All Questions",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/questions",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/questions"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Endpoint untuk mengambil semua pertanyaan beserta jawabannya."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Questions\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"question\": \"Sample Question 1\",\n      \"answer\": \"Sample Answer 1\"\n    },\n    {\n      \"id\": 2,\n      \"question\": \"Sample Question 2\",\n      \"answer\": \"Sample Answer 2\"\n    },\n    ...\n  ]\n }",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Data not found\",\n  \"data\": null\n}",
+                            "name": "Invalid Data"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n  \"message\": \"Internal Server Error\",\n  \"data\": null\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Answer Question",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/question\/:question_id\/answer\/:answer_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/question\/:question_id\/answer\/:answer_id",
+                            "variable": [
+                                {
+                                    "id": "question_id",
+                                    "key": "question_id",
+                                    "value": "1",
+                                    "description": "The ID of the question."
+                                },
+                                {
+                                    "id": "answer_id",
+                                    "key": "answer_id",
+                                    "value": "3",
+                                    "description": "The ID of the answer."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Endpoint untuk menyimpan jawaban untuk pertanyaan tertentu dan memperbarui hasil pengguna."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"message\": \"Success Input Answer\",\n \"data\": [\n   {\n     \"id\": 1,\n     \"question\": \"Example\",\n     ...\n   },\n   {\n     \"id\": 1,\n     \"user_id\": 1,\n     \"tanggal_kuis\": \"2023-06-28 12:00:00\",\n     \"sifat1_score\": 2,\n     \"sifat2_score\": 3,\n     ...\n   }\n ]\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"status\": \"fail\",\n \"message\": \"Answer not found\"\n}",
+                            "name": "Invalid Answer"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n \"status\": \"fail\",\n \"message\": \"An error occurred\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Result",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/result",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/result"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Endpoint untuk mengambil hasil jawaban yang terkait dengan pengguna yang diautentikasi."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Result Found\",\n \"data\": {\n     \"id\": 1,\n     \"user_id\": 1,\n     \"tanggal_kuis\": \"2023-06-28 12:00:00\",\n     \"sifat1_score\": 2,\n     \"sifat2_score\": 3,\n     ...\n }\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n \"status\": \"Fail\",\n \"message\": \"Unauthorized\"\n}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n \"status\": \"Fail\",\n \"message\": \"Data not found\"\n}",
+                            "name": "Invalid Data"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "scenario\n{\n \"status\": \"Fail\",\n \"message\": \"An error occurred\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "key",
+                "type": "string"
+            }
+        ]
+    }
+}
