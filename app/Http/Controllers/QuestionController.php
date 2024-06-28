@@ -25,11 +25,20 @@ class QuestionController extends Controller
                 throw new GeneralException('Data not found', 404);
             }
             //get all questions and answers
+            //randomize the questions and answers
             foreach($question as $q){
-                $question['answer'] = $q->Answer;
+                // Mengambil jawaban sebagai array
+                $answers = $q->Answer->toArray();
+                
+                // Mengacak jawaban
+                shuffle($answers);
+
+                // Menyimpan jawaban yang sudah diacak kembali ke objek pertanyaan
+                $q->setRelation('Answer', collect($answers));
+
             }
     
-            return new GeneralResource(200, 'Questions', $question);
+            return new GeneralResource(200, 'Questions', $question->shuffle());
         } catch (\Throwable $th) {
             throw new GeneralException($th->getMessage(), 500);
         }
