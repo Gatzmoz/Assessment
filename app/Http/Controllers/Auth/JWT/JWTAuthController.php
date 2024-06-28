@@ -112,7 +112,7 @@ class JWTAuthController extends Controller
             return new GeneralResource(
                 200,
                 'Logout successful',
-                []
+                ['message' => 'Logout successful']
             );
         }
     }
