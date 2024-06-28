@@ -17,6 +17,6 @@ Route::prefix('v1')->group(function () {
       Route::get('/questions', [QuestionController::class, 'getAll']);
       Route::post('/question/{question_id}/answer/{answer_id}', [AnswerController::class, 'store']);
       Route::get('/result', [ResultController::class, 'index']);
-      Route::delete('/result/{user_id}/delete', [ResultController::class, 'destroy']);
+      Route::delete('/result/reset', [ResultController::class, 'destroy']);
    });
 });

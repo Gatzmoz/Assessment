@@ -214,49 +214,49 @@ class AnswerSeeder extends Seeder
             'nilai_sifat' => 0
          ],
 
-         // Jawaban untuk pertanyaan 10
-         [
-            'question_id' => 10,
-            'teks_jawaban' => 'Saya akan membuang sampah dengan tempat yang sudah disediakan',
-            'nilai_sifat' => 0
-         ],
-         [
-            'question_id' => 10,
-            'teks_jawaban' => 'Saya akan bergabung untuk mengikuti kampanye program daur ulang dan bank sampah seperti IWACI (Integrated Waste and Agro Center ITERA)',
-            'nilai_sifat' => 4
-         ],
-         [
-            'question_id' => 10,
-            'teks_jawaban' => 'Saya akan menyuruh tim mahasiswa peduli lingkungan untuk mengkaji masalah dan solusi potensial.',
-            'nilai_sifat' => 0
-         ],
-         [
-            'question_id' => 10,
-            'teks_jawaban' => 'Saya akan mengajukan kolaborasi dengan komunitas lokal untuk mengembangkan solusi yang lebih luas dan berkelanjutan.',
-            'nilai_sifat' => 0
-         ],
+         // // Jawaban untuk pertanyaan 10
+         // [
+         //    'question_id' => 10,
+         //    'teks_jawaban' => 'Saya akan membuang sampah dengan tempat yang sudah disediakan',
+         //    'nilai_sifat' => 0
+         // ],
+         // [
+         //    'question_id' => 10,
+         //    'teks_jawaban' => 'Saya akan bergabung untuk mengikuti kampanye program daur ulang dan bank sampah seperti IWACI (Integrated Waste and Agro Center ITERA)',
+         //    'nilai_sifat' => 4
+         // ],
+         // [
+         //    'question_id' => 10,
+         //    'teks_jawaban' => 'Saya akan menyuruh tim mahasiswa peduli lingkungan untuk mengkaji masalah dan solusi potensial.',
+         //    'nilai_sifat' => 0
+         // ],
+         // [
+         //    'question_id' => 10,
+         //    'teks_jawaban' => 'Saya akan mengajukan kolaborasi dengan komunitas lokal untuk mengembangkan solusi yang lebih luas dan berkelanjutan.',
+         //    'nilai_sifat' => 0
+         // ],
 
-         // Jawaban untuk pertanyaan 11
-         [
-            'question_id' => 11,
-            'teks_jawaban' => 'Menjadi mediator sukarela dalam menyelesaikan konflik warga',
-            'nilai_sifat' => 0
-         ],
-         [
-            'question_id' => 11,
-            'teks_jawaban' => 'Mengadakan diskusi komunitas tentang pentingnya perdamaian dan resolusi konflik',
-            'nilai_sifat' => 0
-         ],
-         [
-            'question_id' => 11,
-            'teks_jawaban' => 'Membantu mendirikan pusat konseling untuk membantu warga yang mengalami konflik',
-            'nilai_sifat' => 4
-         ],
-         [
-            'question_id' => 11,
-            'teks_jawaban' => 'Mengajarkan nilai-nilai perdamaian dan keadilan kepada anak-anak di desa.',
-            'nilai_sifat' => 0
-         ],
+         // // Jawaban untuk pertanyaan 11
+         // [
+         //    'question_id' => 11,
+         //    'teks_jawaban' => 'Menjadi mediator sukarela dalam menyelesaikan konflik warga',
+         //    'nilai_sifat' => 0
+         // ],
+         // [
+         //    'question_id' => 11,
+         //    'teks_jawaban' => 'Mengadakan diskusi komunitas tentang pentingnya perdamaian dan resolusi konflik',
+         //    'nilai_sifat' => 0
+         // ],
+         // [
+         //    'question_id' => 11,
+         //    'teks_jawaban' => 'Membantu mendirikan pusat konseling untuk membantu warga yang mengalami konflik',
+         //    'nilai_sifat' => 4
+         // ],
+         // [
+         //    'question_id' => 11,
+         //    'teks_jawaban' => 'Mengajarkan nilai-nilai perdamaian dan keadilan kepada anak-anak di desa.',
+         //    'nilai_sifat' => 0
+         // ],
       ];
       Answer::query()->insert($Answer);
    }

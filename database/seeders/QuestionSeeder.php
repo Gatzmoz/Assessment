@@ -48,13 +48,13 @@ Bagaimana kampus ITERA mencapai keseimbangan antara pembangunan dan pelestarian 
 Lalu, langkah apa yang seharusnya diambil pihak ITERA untuk mengurangi risiko kecelakaan di laboratorium?
 '
          ],
-         [
-            'teks_pertanyaan' => 'Jika kampus ITERA sedang menghadapi masalah pengelolaan sampah yang buruk. Sebagai mahasiswa yang peduli terhadap lingkungan dan pembangunan berkelanjutan, maka apa yang akan Anda lakukan untuk mengatasi masalah ini?
-'
-         ],
-         [
-            'teks_pertanyaan' => 'Di Desa Amanah, terjadi peningkatan kasus kekerasan dan perselisihan antarwarga. Pemerintah desa meluncurkan inisiatif "Desa Damai" yang bertujuan untuk mempromosikan perdamaian dan menyelesaikan konflik secara adil. Bagaimana Anda dapat mendukung inisiatif "Desa Damai" untuk membantu mencapai tujuan SDG nomor 16 di Desa Amanah?'
-         ],
+//          [
+//             'teks_pertanyaan' => 'Jika kampus ITERA sedang menghadapi masalah pengelolaan sampah yang buruk. Sebagai mahasiswa yang peduli terhadap lingkungan dan pembangunan berkelanjutan, maka apa yang akan Anda lakukan untuk mengatasi masalah ini?
+// '
+//          ],
+//          [
+//             'teks_pertanyaan' => 'Di Desa Amanah, terjadi peningkatan kasus kekerasan dan perselisihan antarwarga. Pemerintah desa meluncurkan inisiatif "Desa Damai" yang bertujuan untuk mempromosikan perdamaian dan menyelesaikan konflik secara adil. Bagaimana Anda dapat mendukung inisiatif "Desa Damai" untuk membantu mencapai tujuan SDG nomor 16 di Desa Amanah?'
+//          ],
       ];
       Question::query()->insert($Question);
    }
