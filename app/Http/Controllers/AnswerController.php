@@ -86,6 +86,8 @@ class AnswerController extends Controller
             case 4:
                $result->sifat4_score += 2;
                break;
+            default:
+             break;
          }
          $result->save();
 
