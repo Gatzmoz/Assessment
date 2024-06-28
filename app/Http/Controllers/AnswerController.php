@@ -38,7 +38,47 @@ class AnswerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Answer Question
+     * 
+     * Endpoint untuk menyimpan jawaban untuk pertanyaan tertentu dan memperbarui hasil pengguna.
+     * 
+     * @authenticated
+     * 
+     * @urlParam question_id required The ID of the question. Example: 1
+     * @urlParam answer_id required The ID of the answer. Example: 3
+     *
+     * @response 201 scenario=success
+     * {
+     *  "message": "Success Input Answer",
+     *  "data": [
+     *    {
+     *      "id": 1,
+     *      "question": "Example",
+     *      ...
+     *    },
+     *    {
+     *      "id": 1,
+     *      "user_id": 1,
+     *      "tanggal_kuis": "2023-06-28 12:00:00",
+     *      "sifat1_score": 2,
+     *      "sifat2_score": 3,
+     *      ...
+     *    }
+     *  ]
+     * }
+     * 
+     * @response 404 scenario="Invalid Answer"
+     * {
+     *  "status": "fail",
+     *  "message": "Answer not found"
+     * }
+     * 
+     * @response 500 scenario
+     * {
+     *  "status": "fail",
+     *  "message": "An error occurred"
+     * }
+     *
      */
 
     public function store(Request $request,$question_id,$answer_id){

@@ -48,9 +48,6 @@ class QuestionController extends Controller
      * }
      *
      */
-   /**
-    * Display a listing of the resource.
-    */
 
     //get all questions
     public function getAll()
